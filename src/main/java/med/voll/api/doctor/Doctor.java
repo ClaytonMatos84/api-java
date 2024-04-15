@@ -35,4 +35,10 @@ public class Doctor {
         this.specialty = doctorDTO.specialty();
         this.address = new Address(doctorDTO.address());
     }
+
+    public void partiallyUpdate(DoctorUpdateDTO doctorUpdateDTO) {
+        if (doctorUpdateDTO.name() != null) this.name = doctorUpdateDTO.name();
+        if (doctorUpdateDTO.telephone() != null) this.telephone = doctorUpdateDTO.telephone();
+        if (doctorUpdateDTO.address() != null) this.address.partiallyUpdate(doctorUpdateDTO.address());
+    }
 }
