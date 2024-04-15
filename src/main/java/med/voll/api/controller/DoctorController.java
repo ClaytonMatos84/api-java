@@ -6,11 +6,11 @@ import med.voll.api.doctor.DoctorDTO;
 import med.voll.api.doctor.DoctorOutputDTO;
 import med.voll.api.doctor.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/doctors")
@@ -27,8 +27,8 @@ public class DoctorController {
     }
 
     @GetMapping
-    public List<DoctorOutputDTO> list() {
-        return doctorRepository.findAll().stream().map(DoctorOutputDTO::new).collect(Collectors.toList());
+    public Page<DoctorOutputDTO> list(@PageableDefault(size = 12, sort = {"name"}) Pageable page) {
+        return doctorRepository.findAll(page).map(DoctorOutputDTO::new);
     }
 
 }
