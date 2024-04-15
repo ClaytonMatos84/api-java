@@ -22,6 +22,7 @@ public class Doctor {
     private String email;
     private String telephone;
     private String crm;
+    private Boolean active;
     @Enumerated(EnumType.STRING)
     private Specialty specialty;
     @Embedded
@@ -32,6 +33,7 @@ public class Doctor {
         this.email = doctorDTO.email();
         this.telephone = doctorDTO.telephone();
         this.crm = doctorDTO.crm();
+        this.active = true;
         this.specialty = doctorDTO.specialty();
         this.address = new Address(doctorDTO.address());
     }
@@ -40,5 +42,9 @@ public class Doctor {
         if (doctorUpdateDTO.name() != null) this.name = doctorUpdateDTO.name();
         if (doctorUpdateDTO.telephone() != null) this.telephone = doctorUpdateDTO.telephone();
         if (doctorUpdateDTO.address() != null) this.address.partiallyUpdate(doctorUpdateDTO.address());
+    }
+
+    public void remove() {
+        this.active = false;
     }
 }
