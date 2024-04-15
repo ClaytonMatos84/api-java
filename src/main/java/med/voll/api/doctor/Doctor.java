@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.voll.api.address.Address;
 
-@Table(name = "doctor")
+@Table(name = "doctors")
 @Entity(name = "Doctor")
 @Getter
 @NoArgsConstructor
@@ -20,6 +20,7 @@ public class Doctor {
     private Long id;
     private String name;
     private String email;
+    private String telephone;
     private String crm;
     @Enumerated(EnumType.STRING)
     private Specialty specialty;
@@ -29,6 +30,7 @@ public class Doctor {
     public Doctor(DoctorDTO doctorDTO) {
         this.name = doctorDTO.name();
         this.email = doctorDTO.email();
+        this.telephone = doctorDTO.telephone();
         this.crm = doctorDTO.crm();
         this.specialty = doctorDTO.specialty();
         this.address = new Address(doctorDTO.address());
