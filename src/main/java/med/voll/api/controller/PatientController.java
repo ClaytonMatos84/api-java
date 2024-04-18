@@ -5,10 +5,10 @@ import med.voll.api.model.patient.dto.PatientDTO;
 import med.voll.api.model.patient.dto.PatientOutputDTO;
 import med.voll.api.model.patient.entity.Patient;
 import med.voll.api.service.PatientService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/patients")
@@ -24,6 +24,12 @@ public class PatientController {
     public PatientOutputDTO insert(@RequestBody @Valid PatientDTO patientDTO) {
         Patient savedPatient = patientService.insert(new Patient(patientDTO));
         return new PatientOutputDTO(savedPatient);
+    }
+
+    @GetMapping
+    public Page<PatientOutputDTO> list(@PageableDefault(size = 10, sort = {"name"}) Pageable page) {
+        Page<Patient> patientPage = patientService.list(page);
+        return patientPage.map(PatientOutputDTO::new);
     }
 
 }
