@@ -1,6 +1,5 @@
 package med.voll.api.service;
 
-import med.voll.api.model.doctor.repository.DoctorRepository;
 import med.voll.api.model.patient.entity.Patient;
 import med.voll.api.model.patient.repository.PatientRepository;
 import org.springframework.data.domain.Page;
@@ -12,12 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class PatientService {
 
     private final PatientRepository patientRepository;
-    private final DoctorRepository doctorRepository;
 
-    public PatientService(PatientRepository patientRepository,
-                          DoctorRepository doctorRepository) {
+    public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
-        this.doctorRepository = doctorRepository;
     }
 
     @Transactional
