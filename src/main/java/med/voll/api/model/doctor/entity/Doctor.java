@@ -40,12 +40,6 @@ public class Doctor {
         this.address = new Address(doctorDTO.address());
     }
 
-    public Doctor(DoctorUpdateDTO doctorUpdateDTO) {
-        this.name = doctorUpdateDTO.name();
-        this.telephone = doctorUpdateDTO.telephone();
-        this.address = new Address(doctorUpdateDTO.address());
-    }
-
     public static Doctor parseDoctor(DoctorUpdateDTO doctorUpdateDTO) {
         Doctor doctor = new Doctor();
         if (doctorUpdateDTO.name() != null) doctor.name = doctorUpdateDTO.name();

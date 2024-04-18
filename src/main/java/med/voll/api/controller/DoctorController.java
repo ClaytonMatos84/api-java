@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,7 +23,6 @@ public class DoctorController {
     }
 
     @PostMapping
-    @Transactional
     public DoctorOutputDTO insert(@RequestBody @Valid DoctorDTO doctorDTO) {
         Doctor savedDoctor = doctorService.insert(new Doctor(doctorDTO));
         return new DoctorOutputDTO(savedDoctor);
@@ -43,7 +41,6 @@ public class DoctorController {
     }
 
     @PatchMapping("/{id}")
-    @Transactional
     public DoctorOutputDTO partiallyUpdate(@PathVariable Long id, @RequestBody @Valid DoctorUpdateDTO doctorUpdateDTO) {
         Doctor updateDoctor = doctorService.partiallyUpdate(id, Doctor.parseDoctor(doctorUpdateDTO));
         return new DoctorOutputDTO(updateDoctor);
@@ -51,7 +48,6 @@ public class DoctorController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Transactional
     public void remove(@PathVariable Long id) {
         doctorService.remove(id);
     }
