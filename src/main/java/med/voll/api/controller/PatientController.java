@@ -9,6 +9,7 @@ import med.voll.api.service.PatientService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -37,6 +38,12 @@ public class PatientController {
     public PatientOutputDTO partiallyUpdate(@PathVariable Long id, @RequestBody @Valid PatientUpdateDTO patientUpdateDTO) {
         Patient updatePatient = patientService.partiallyUpdate(id, Patient.parsePatient(patientUpdateDTO));
         return new PatientOutputDTO(updatePatient);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remove(@PathVariable Long id) {
+        patientService.remove(id);
     }
 
 }

@@ -37,4 +37,10 @@ public class PatientService {
         return patientUpdated;
     }
 
+    @Transactional
+    public void remove(Long patientId) {
+        Patient patient = patientRepository.getReferenceById(patientId);
+        patient.remove();
+    }
+
 }

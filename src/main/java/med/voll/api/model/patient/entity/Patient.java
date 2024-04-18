@@ -52,4 +52,8 @@ public class Patient {
         if (patient.getAddress() != null) this.address.partiallyUpdate(patient.getAddress());
     }
 
+    public void remove() {
+        this.active = false;
+    }
+
 }
