@@ -1,5 +1,6 @@
 package med.voll.api.service;
 
+import med.voll.api.model.doctor.repository.DoctorRepository;
 import med.voll.api.model.patient.entity.Patient;
 import med.voll.api.model.patient.repository.PatientRepository;
 import org.springframework.data.domain.Page;
@@ -11,9 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class PatientService {
 
     private final PatientRepository patientRepository;
+    private final DoctorRepository doctorRepository;
 
-    public PatientService(PatientRepository patientRepository) {
+    public PatientService(PatientRepository patientRepository,
+                          DoctorRepository doctorRepository) {
         this.patientRepository = patientRepository;
+        this.doctorRepository = doctorRepository;
     }
 
     @Transactional
@@ -25,4 +29,12 @@ public class PatientService {
     public Page<Patient> list(Pageable page) {
         return patientRepository.findAllByActiveTrue(page);
     }
+
+    @Transactional
+    public Patient partiallyUpdate(Long patientId, Patient updatePatient) {
+        Patient patientUpdated = patientRepository.getReferenceById(patientId);
+        patientUpdated.partiallyUpdate(updatePatient);
+        return patientUpdated;
+    }
+
 }

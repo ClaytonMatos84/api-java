@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.voll.api.model.address.entity.Address;
 import med.voll.api.model.patient.dto.PatientDTO;
+import med.voll.api.model.patient.dto.PatientUpdateDTO;
 
 @Table(name = "patients")
 @Entity(name = "patient")
@@ -35,4 +36,20 @@ public class Patient {
         this.address = new Address(patientDTO.address());
         this.active = true;
     }
+
+    public static Patient parsePatient(PatientUpdateDTO patientUpdateDTO) {
+        Patient patient = new Patient();
+        if (patientUpdateDTO.name() != null) patient.name = patientUpdateDTO.name();
+        if (patientUpdateDTO.telephone() != null) patient.telephone = patient.getTelephone();
+        if (patientUpdateDTO.address() != null) patient.address = new Address(patientUpdateDTO.address());
+
+        return patient;
+    }
+
+    public void partiallyUpdate(Patient patient) {
+        if (patient.getName() != null) this.name = patient.getName();
+        if (patient.getTelephone() != null) this.telephone = patient.getTelephone();
+        if (patient.getAddress() != null) this.address.partiallyUpdate(patient.getAddress());
+    }
+
 }
