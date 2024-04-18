@@ -27,7 +27,7 @@ public class DoctorService {
     }
 
     public Doctor findById(Long doctorId) {
-        return doctorRepository.findByIdAndActiveTrue(doctorId).orElse(null);
+        return doctorRepository.findByIdAndActiveTrue(doctorId).orElseThrow();
     }
 
     @Transactional

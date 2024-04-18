@@ -23,6 +23,7 @@ public class PatientController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public PatientOutputDTO insert(@RequestBody @Valid PatientDTO patientDTO) {
         Patient savedPatient = patientService.insert(new Patient(patientDTO));
         return new PatientOutputDTO(savedPatient);
