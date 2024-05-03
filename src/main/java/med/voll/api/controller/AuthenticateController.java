@@ -3,6 +3,9 @@ package med.voll.api.controller;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import med.voll.api.domain.user.dto.UserDTO;
+import med.voll.api.domain.user.dto.UserTokenDTO;
+import med.voll.api.domain.user.entity.User;
+import med.voll.api.service.TokenService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,14 +21,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticateController {
 
     private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
 
     @PostMapping
     public ResponseEntity login(@RequestBody @Valid UserDTO userDto) {
-        UsernamePasswordAuthenticationToken token =
+        UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(userDto.login(), userDto.password());
-        Authentication authenticate = authenticationManager.authenticate(token);
+        Authentication authenticate = authenticationManager.authenticate(authenticationToken);
 
-        return ResponseEntity.ok().build();
+        String token = tokenService.generateToken((User) authenticate.getPrincipal());
+        return ResponseEntity.ok(new UserTokenDTO(token));
     }
 
 }
