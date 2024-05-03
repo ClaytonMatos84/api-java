@@ -1,7 +1,7 @@
 package med.voll.api.service;
 
-import med.voll.api.model.patient.entity.Patient;
-import med.voll.api.model.patient.repository.PatientRepository;
+import med.voll.api.domain.patient.entity.Patient;
+import med.voll.api.domain.patient.repository.PatientRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

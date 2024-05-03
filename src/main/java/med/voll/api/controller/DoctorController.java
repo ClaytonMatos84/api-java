@@ -1,11 +1,11 @@
 package med.voll.api.controller;
 
 import jakarta.validation.Valid;
-import med.voll.api.model.doctor.dto.DoctorDTO;
-import med.voll.api.model.doctor.dto.DoctorOutputCompleteDTO;
-import med.voll.api.model.doctor.dto.DoctorOutputDTO;
-import med.voll.api.model.doctor.dto.DoctorUpdateDTO;
-import med.voll.api.model.doctor.entity.Doctor;
+import med.voll.api.domain.doctor.dto.DoctorDTO;
+import med.voll.api.domain.doctor.dto.DoctorOutputCompleteDTO;
+import med.voll.api.domain.doctor.dto.DoctorOutputDTO;
+import med.voll.api.domain.doctor.dto.DoctorUpdateDTO;
+import med.voll.api.domain.doctor.entity.Doctor;
 import med.voll.api.service.DoctorService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
