@@ -19,9 +19,10 @@ public class AppointmentController {
 
     @PostMapping
     public ResponseEntity schedule(@RequestBody @Valid AppointmentSchedulingDTO appointmentSchedulingDTO) {
-        appointmentService.scheduler(appointmentSchedulingDTO.idDoctor(), appointmentSchedulingDTO.idPatient(),
+        Appointment appointment = appointmentService.scheduler(appointmentSchedulingDTO.idDoctor(), appointmentSchedulingDTO.idPatient(),
                 appointmentSchedulingDTO.date(), appointmentSchedulingDTO.specialty());
-        return ResponseEntity.ok(new AppointmentSchedullingOutputDTO(null, null, null, null));
+        return ResponseEntity.ok(new AppointmentSchedullingOutputDTO(appointment.getId(), appointment.getDoctor().getId(),
+                appointment.getPatient().getId(), appointment.getDate(), appointment.getDoctor().getSpecialty()));
     }
 
     @DeleteMapping

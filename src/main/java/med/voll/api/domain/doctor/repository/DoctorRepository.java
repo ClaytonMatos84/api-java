@@ -11,22 +11,23 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
-    Page<Doctor> findAllByActiveTrue(Pageable page);
-
-    Optional<Doctor> findByIdAndActiveTrue(Long id);
-
     @Query("""
-            select m from Doctor m
-            where m.active = true
-            and m.specialty = :specialty
-            and m.id not in(
+            select d from Doctor d
+            where d.active = true
+            and d.specialty = :specialty
+            and d.id not in(
                 select a.doctor.id from Appointment a
                 where a.date = :date
+                and a.cancelReason is null
             )
             order by rand()
             limit 1
             """)
     Doctor findBySpecialtyAndDate(Specialty specialty, LocalDateTime date);
+
+    Page<Doctor> findAllByActiveTrue(Pageable page);
+
+    Optional<Doctor> findByIdAndActiveTrue(Long id);
 
     boolean existsByIdAndActiveTrue(Long idDoctor);
 }
