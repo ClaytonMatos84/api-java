@@ -1,6 +1,8 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import med.voll.api.domain.doctor.dto.DoctorDTO;
 import med.voll.api.domain.doctor.dto.DoctorOutputCompleteDTO;
 import med.voll.api.domain.doctor.dto.DoctorOutputDTO;
@@ -18,14 +20,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/doctors")
+@SecurityRequirement(name = "bearer-key")
 public class DoctorController {
 
     private final DoctorService doctorService;
-
-    public DoctorController(DoctorService doctorService) {
-        this.doctorService = doctorService;
-    }
 
     @PostMapping
     @ResponseBody

@@ -1,6 +1,8 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import med.voll.api.domain.patient.dto.PatientDTO;
 import med.voll.api.domain.patient.dto.PatientOutputDTO;
 import med.voll.api.domain.patient.dto.PatientUpdateDTO;
@@ -13,14 +15,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/patients")
+@SecurityRequirement(name = "bearer-key")
 public class PatientController {
 
     private final PatientService patientService;
-
-    public PatientController(PatientService patientService) {
-        this.patientService = patientService;
-    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
